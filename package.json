@@ -1,0 +1,24 @@
+{
+  "name": "tuto-react",
+  "version": "1.0.0",
+  "description": "-- simple react learn app --",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noumecha/tuto-react.git"
+  },
+  "author": "tmc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noumecha/tuto-react/issues"
+  },
+  "homepage": "https://github.com/noumecha/tuto-react#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.5",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}
