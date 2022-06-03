@@ -3,8 +3,8 @@ import { render } from 'react-dom'
 
 function Compteur () 
 {
-    useState()
-
+    const state = useState(0)
+    console.log(state)
     return <button></button>
 }
 
