@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import './clock.css'
 
 export class Clock extends Component 
 {
@@ -8,12 +9,28 @@ export class Clock extends Component
         this.state = {
             date: new Date()
         }
+        this.timer = null
     }
 
-    render()
+    componentDidMount() 
     {
-        return <div>
-            {this.state.date.toLocaleDateString}
+        this.timer = window.setInterval(
+            () => {
+                this.setState({
+                    date: new Date()
+                })
+            }
+        )
+    }
+
+    componentWillUnmount() 
+    {
+        window.clearInterval(this.timer)
+    }
+
+    render() {
+        return <div className="clock">
+            {this.state.date.toLocaleString()}
         </div>
     }
 }
