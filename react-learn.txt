@@ -1,0 +1,377 @@
+------------------------------------------
+------------------------------------------
+---- Learning react with graphikart -------
+------------------------------------------
+---| 24/05/22 
+
+-- chapter 1 : introduction -- 
+
+	--- c'est quoi react --- 
+	- library js permettant de creer des UI
+
+	--- problématique --- 
+	- difficile de synchroniser l'ui et létat de l'app
+	- etat : ens éléments de notre app
+
+	-- react fait quoi -- 
+	- react sépare l'état et la vue 
+	- permet de representer la vue comme une fonction de l'état
+
+	-- pourquoi react -- 
+	- approche différente 
+	- différent != meilleur
+	- react simple en surface 
+	- Ecosystème: 
+		- react native : pour des applications natives(android)
+		- react dom : pour des application au niveau du dom
+		- react desktop : application desktop 
+	- syntaxe JSX : petite ajout à javascipt
+
+	-- prerequis --
+	- (() => "Etre à l'aise avec javaScript")()
+
+-- chapter 2 : premier pas avec React --
+
+	-- pourquoi deux CDN -- 
+	- react dom est fait pour connecter nos élément react avec le dom
+	- lorsqu'on fait du react on utilisera react et react-dom 
+	- lorsqu'on fera du react-native , on utilisera du react et du react-native , pas besoin de react-dom
+
+	-- premier pas [ tu peux regarder la doc poto ] --
+	- all codes in /home/noumel/Codes/React/
+
+-- chapter 3 : syntaxe JSX --
+
+	-- c'est quoi JSX -- 
+	- ecrire du react plus simplement 
+	- syntaxe propre à react 
+	- pas forcement compris pas les navigateur
+	- babel : pour convertir du code js evolué en code js simple
+	- JSX est conseillé pour le mode dev
+	- déconseillé en prod
+
+	-- comment ecrire du JSX -- 
+	- possibilité de directement mettre le html dans le javascript
+	- la déclaration des class css se font avec le mot clé ClassName 
+	- tout simplement parceque class est déja utilisé par javascript par défaut.
+	- on a besoin de babel pour traduire notre code js evolué en Js simple
+	- eg JSX : 
+		let n = 0;
+
+		function hw() 
+		{
+			const bj = <h1 className="hw--title">
+				hello les devs ! 
+				<span> {n} </span>
+			</h1>
+		}
+		const root = ReactDOM.createRoot(document.getElementById('app'))
+
+		const home = <hw/>
+
+		root.render(home)
+
+	- lors de l'insertion du html , les balises ne peuvent avoir qu'un seule parent pour que le JSX soit valide
+	- le système de fragment : permet de se passer de l'option précédente 
+		- on doit pour cela creer autour de notre code un élément sans tag 
+		- ie : <>éléments à l'intérieur</>
+	- les fragments permettent de creer plusieus éléments sans qu'il n'y ai de racine défini
+
+-- chapter 4 : creation de composant avec React -- 
+
+	- les composants sont la base du fonctionnement et du travail avec React
+	- c'est ce qui fait la force de react
+	- un composant c'est une fonction 
+	- eg simple component : 
+
+	function Welcome (props) 
+	{
+		return <div> hello world {props.element}</div>
+	}
+	const root = ReactDOM.createRoot(document.getElementById('Welcome'))
+	const welcome = <Welcome element="valeur"></Welcome>
+
+	root.render(welcome)
+
+	- Nb : à la place de (props) , on peut aussi directement appeler {element}
+	- cela permet de l'appeler directement en faisant {element} à la place de {props.element}
+	- BAS : les composant permettent de reutiliser le code et de creer des composant que l'on peut utiliser de maninère modulables
+	- creer des composant avec les classes :
+
+	class MyComponet extends React.Component 
+	{
+		constructor(props) 
+		{
+			super(props)
+		}
+		render() 
+		{
+			return "contenu de mon composant"
+		}
+	}
+
+	- le constructeur ici est important et pour utiliser les props 
+	- il faut au prealable l'appeler depuis la classe mere avec super(props)
+
+	-- Etats des composants et cycle de vie -- 
+	- l'état permet de rendre un composant dynamique
+	- l'état : objet qui représente les données qui sont utilises à l'intérieur du composant et qui ne seront pas forcément exposés par des propriétés
+	- l'état est accessible à une propriété spécifique : "state"
+	- Cycle de vie d'un composant : 
+		- chaque fois qu'un composant est monté , il est monté de maninière individuelle
+		- pour mieux comprendre le cycle de vie d'un composant : lire la doc officielle
+
+-- chapter 5 : Evenements avec react -- 
+
+	- on peut écouter des événements qui vont se derouler sur un élément 
+	- et de pouvoir agir en fonction de l'évènement
+	- pour creer un evenement 
+	- on peut le definir directement comme une props du composant 
+	- ainsi à l'intérieur on peut directement appeler la fonction 
+	- cela est propre à React
+	- c'est le SyntheticEvent qui se charge de gerer les evenements sur react :) [voir la doc pour plus]
+	- BAS : le render est appelé chaque fois qu'il ya changement d'etat
+	- eg ev : 
+
+	class MyComponent extends React.Component 
+	{
+		constructor(props) 
+		{
+			super(props)
+			this.state = {
+				name: "John",
+			}
+			this.hello = this.hello.bind(this)
+		}
+
+		hello() {
+			console.log("hello world" + this.state.name);
+		}
+
+		render() 
+		{
+			const {name} = this.state
+			return  <div>
+				<button name={name} className="container" onClick={this.hello()}/>
+			</div>
+		}
+	}
+	const root = ReactDOM.createRoot(document.getElementById("el"))
+
+	const home = <button name="noumel" />
+
+	root.render(home)
+
+-- chapter 6 : les formulaires -- 
+
+	- dans le dom classiques les formulaires sont cap de maintenir eux meme leur propre état
+	- react à sa propre manière via les state afin de gerer l'état
+	- en JSX soit on utilise des balises autofermantes soit des balises doubles, pas de balises simple
+	- les types de champs pouvant etre controler par react : 
+		-> label 
+		-> input
+		-> select
+		-> checkbox
+		-> file x [react ne peut pas modifier la valeur des champs de type file]
+	- deux types de champs : 
+		- les champs controlés : pour suivre les modifs effectués au niveau des champs, 
+		dans ce cas là il faudra utiliser value={this.state.var} et une fonction associé à un evenement par exemple onChange={this.func}
+		- les champs non-controlés : pour ne pas suivre les modifs effectués auniveau des champs, on peut utiliser l'attribut react 
+		defaultValue = 'valeur' pour mettre une valeur par défaut
+	- BP: pour des composants plutot simple l'on peut juste creer de simple function sans passer par les classes
+
+-- chapter 7 : FirstTp.js --
+
+-- chapter 8 : Compositon avec react -- 
+
+	- principe : comment utiliser les composants les uns avec les autres
+	- pour creer des composants on cree des classes qui étendes de React.Component
+	- Avec react on a pas besoin de faire de l'héritage classique pour inserer un composant dans un aute
+
+-- chapter 9 : Liste de Produit [TP 2] --
+
+	- sous react les attribut sont en camelCase
+	- convention sous react les événements seront toujours préfixer de on
+		- eg : onClick, onLoad .. etc 
+
+-- chapter 10 : Composant pur 
+	
+	map : 
+	- l'immutabilité 
+	- composant pur 
+	- comment react fonctionne au niveau des render
+
+	rappel :
+	- chaque fois que l'on fait setState react cree un nouveau rendu
+	- il va rappeler les fonctions pour les composants sous formes de fonctions
+	- et pour les composant sous forme de classe , il va appeler la fonction render
+	- render va creer un arbre avec la fonction createElement de react
+	- ensuite reactDom va comparer avec l'ancienne version pour savoir quels changements il devra appliqué
+
+	probleme : 
+	- cela va creer au niveau du composant un petit cout en performance
+
+	composant pur : 
+	- c'est un composant qui ne sera rendu que si son état ou ses propriétés changent
+	- si l'un des deux change ou les deux , il appelera un render
+	- sils ne changent pas il ne rappele rien
+	- on peut utiliser les pure Component de deux manière :
+		- pour les classe , on remplace React.Component par React.PureComponent
+		- pour les composant sous formes de fonctions on peut le redefinir de cette manière : 
+		function myComponent () {
+			// ... code du composant ici 
+		}
+		const MyComponentPure = React.memo(myComponent)
+	- NB: 
+		- lorsqu'on utilise un pure component , on va demander à react sous certaines conditions de ne pas rendre les choses
+		- on utilisera les composants pur pour des éléments avec une structure complexe
+		- et pour lequel on connait les conditions de react
+
+	l'immutabilité : 
+	- lorsqu'on travaille avec des composants purs il faudra faire attention à ce que les propriété change.
+	- BP : lorsqu'on fait un setState il ne faut pas muter l'objet précédent , il faut juste lui renvoyer un nouvelle object representant notre nouvel état
+	- NB : 
+		- une autre manière de rendre les composants pure : 
+		eg cont MyComponentPure = React.memo(function ({props, children}){
+			// ... code ici
+		})
+		- memo vient de mémorisation : technique utiliser pour sauvegarder les valeurs d'une fonction pour éviter de la rappeler à chaque fois
+		- PureComponent vient des fonctions pures : fonction qui change de retour seulement si ces valeurs d'entrées on changer.
+	- BP : 
+		- lorsqu'on travaille avec les setState on ne doit jamais muter les valeurs.
+		- on ne doit pas changer les valeurs de départ on doit creer de nouvelles 
+		- pour les objets on crée on nouvel objet , soit en utilisant le spread operator soit en utilisant la fonction object.assign()
+		- pour les tableaux on évitera d'utiliser les push , on creera une nouvelle valeur soit en utilisant le spread operator soit en utilisant slice()
+		- lorsqu'on utilisera les calls back pour renvoyer de l'information par exple on fera attention a renvoyer toujours la meme version de la fonction
+		- ne pas definir les fonctions à la volé
+
+-- Chapter 11 les refs et le DOM -- 
+
+	- les refs interviennent lorsqu'on a envie de reagir nous meme avec le DOM
+	- creation des references à un élément de plusieurs manière : 
+		- par un call back : 
+		eg  : 
+		class Comp extends React.Component 
+		{
+			constructor(props)
+			{
+				super(props)
+				this.eventClick = this.eventClick.bind(this)
+				this.input = null
+			}
+			eventClick () 
+			{
+				console.log(this.input.value)
+			}
+			render() 
+			{
+				return <div>
+					<input type="text" ref={(ref) => this.input = ref}/>
+					<button onClick={this.eventClick}>Ref 1</button>
+				</div>
+			}
+		}
+		- avec React.createRef() 
+			- dans ce cas au niveau de la définition de la propriété à laquelle on ajoute une référence on devra faire (dans le constructeur ): 
+				this.propieter = React.createRef() 
+			- au niveau du return , on devra faire ceci dans lélément contenant la reference : 
+				ref = {this.propieter}
+			- et au niveau de la fonction au cas ou on veut recuperer une valeur on devra farire : 
+				this.propierter.current.value 
+			- NB: avec React.createRef on utilisera toujours current si l'on veut manipuler les valeurs
+	- PB : en utilisant les refs on sera en train de manipuler le DOM nous meme et donc cela va à lencontre de React 
+	- on a deux cas ou l'on pourra utiliser les refs : 
+		- dans le cas ou on a des champs controler et on veut recuperer la valeur ou l'alterer dans ce cas la cela ne pose aucun problème
+		- lorsqu'on veut brancher des composants qui sont externes à react (eg : lib js sur un champ)
+	- faire déscendre les inforamtions et descendre la ref :
+		
+-- chapter 12 : react dev tools --
+
+-- chapter 13 : Create React App -- 
+
+	- ici on utilisera node js pour creer une nouvelle application react 
+	- avec npx create-react-app nom_app
+	- NB : le nom de l'application doit etre en minuscule
+	- structure : 
+		/node_modules : contient toutes les dépendance de notre projet 
+		/public : contient les fichiers statique , qui ne seront pas généré par le serveur
+		/src : contient toute la logique de notre code c'est dans ce dossier que nous travaillerons principalement 
+		package.json : contient les chemeins vers les dépendance
+	- les commandes : 
+		- npm start : permet de demarrer le serveur de developement 
+		- npm build : permet de generer les fichier static minifier , il va creer un fichier build que l'on pourra déployer sur un serveur une fois notre application terminé
+		- npm test : permet de lancer les tests, tester les composants de manières isoler et de tester les choses et faire des test unitaire
+		- npm eject : permlet de supprimer le template par défaut que l'on utilise et d'exporter directement la config
+
+-- chapter 14 : parcel --
+	
+	- c'est d'un bundle qui permet de compresser tout les fichiers de notre projet en un seul
+	- vous devez creer un nouveau projet avec npm ou yarn 
+	- et installer react et react-dom 
+		- avec npm add react react-dom
+		- ensuite vous devez ajouter parcel en faisant 
+		- npm add -d parcel-bundler (-d pour dire que c'est une deps du projet)
+	- après avoir installer parcel vous devez fair ceci si vous voulez qu'il compresse vos fichier
+		- npx parcel nomfichier.extension
+		- il va démarrer un seveur de dev 
+		- vous n'avez plus qu'a l'ouvrir
+	- si vous voulez build votre application pour un deploiement 
+		- vous devez taper : npx parcel build fichier.extension
+
+-- chapter 15 ; hook sur react {hookUseState} --
+	- il permettent d'ajouter des fonctionnalités aux composants définis sous forme de fonction
+	- PBs: 
+		- les composant sous forme de fonction ne peuvent pas avoir un état local (un state)
+		- souvent on a les memes manipulations d'état à faire et avec les classes ce n'est pas évident d'extraire les choses 
+	- le hook est un nom donné à la nouvelle API de react : c'est une serie de fonctions qui permette de rajouter des fonctionnalités qui on attrait à l'état ou au cycle de vie de notre
+	composant.
+	- NB : 
+		+ un useState ne peut pas etre dans une condition ou une boucle*
+		+ le useState() peut prende n'importe en quoi en paramètre
+	- chaque fois que l'on fait un set , la fonction render est appelé
+	- avec les hook on peut aussi creer nos propres hooks afin de garder une partie de la logique
+	- BAS : 
+		+ lorsqu'on fait un useState , il va creer une variable qui va etre sauvegarder comme état du composant
+		+ tout au long de la vie du composant le hook va permettre de mémoriser la valeur
+		+ on ne peut pas changer l'ordre des setState
+		+ lorsqu'on fait un eject avec react on doit utiliser les hooks dans nos hooks personnaliser
+
+-- chapter 16 : {hook useEffect} --
+	- il permet de creer un code qui va avoir un effet de bord dans nos composants
+	- utiliser pour creer des effets relatif a des états de notre application
+	- en remplacement de componentUnmount , ditMount , ... etc
+
+-- chapter 17 : {hook personnalisé } --
+	- doivent toujours commencer par use 
+	- syntaxe de creation d'un hook personnaliser 
+		- NB : nos hook personnaliser la plupart du temps utiliserons les hooks de base 
+		- eg syntax : 
+			function useMonHook(param1, param2, ...) {
+				const [state, function] = useHookDeBase(param)
+
+				const functionUse = function() {
+					function (){
+						traitement
+					}
+				}
+				return [state, funtionUse]
+			}
+			ensuite on peut l'utiser dans notre composant en l'appelant 
+		- exemple hook personnliser : 
+			function useToggle(initializer = true) 
+			{
+			    const [value, setValue] = useState(initializer)
+			    const toggle = function() {
+			        setValue (v => !v)
+			    }
+			    return [value, toggle]
+			}
+			// utilisation dans un Composant : 
+			const [CompteurVisible, toggleCompteur] = useToggle(true) 
+			return <div>
+		        Show counter <input onChange={toggleCompteur} checked={CompteurVisible} type="checkbox" />
+		        <br />
+		        {CompteurVisible && <Compteur/>}
+		    </div>
+
+	- stopped video : 08:23
