@@ -1,14 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import {Clock} from './Clock'
-import {Compteur} from './Compteur'
+import {AppCompteur} from './Compteur'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <Clock/>
-        <Compteur/>
+        <AppCompteur/>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
