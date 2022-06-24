@@ -42,7 +42,7 @@ code {
   color: white;
   margin-top: 7px;
   font-size: 20px;
-  transition: 4s ease-in;
+  transition: 2s ease-in;
 }
 .cmp:hover {
   cursor: pointer;
