@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/** for Clock component */
+
+.clock {
+    background: inherit;
+    font-weight: 500;
+    display: block;
+    padding: 25px;
+    height: auto;
+    border-radius: 40px;
+    background: #1E90FF;
+    color: white;
+}
+.clock:hover {
+    cursor: pointer;
+    background: #228B22;
+}
+
+/* for compteur component */
+.cmp {
+  border: none;
+  background: inherit;
+  font-weight: 500;
+  display: block;
+  padding: 25px;
+  height: auto;
+  border-radius: 40px;
+  background: #1E90FF;
+  color: white;
+  margin-top: 7px;
+  font-size: 20px;
+  transition: 4s ease-in;
+}
+.cmp:hover {
+  cursor: pointer;
+  background: #228B22;
+}

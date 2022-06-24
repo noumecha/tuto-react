@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './index.css'
 
 // eg personnalize hook 
 
@@ -15,7 +16,7 @@ export function Compteur () {
 
     const [count, increment] = useIncrement()
    
-    return <button onClick={increment}>
+    return <button className="cmp" onClick={increment}>
         Nombre : {count}
     </button>
 
