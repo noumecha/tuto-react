@@ -3,6 +3,7 @@ import './App.css';
 import {Clock} from './Clock'
 import {AppCompteur} from './Compteur'
 import {TodoList} from './Compteur'
+import { AppButton } from './Button'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Clock/>
         <AppCompteur/>
         <TodoList />
+        <AppButton />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
