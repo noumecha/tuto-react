@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {Clock} from './Clock'
 import {AppCompteur} from './Compteur'
+import {TodoList} from './Compteur'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <header className="App-header">
         <Clock/>
         <AppCompteur/>
+        <TodoList />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.

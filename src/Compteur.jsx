@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.css'
 
 // eg personnalize hook 
@@ -20,6 +20,29 @@ function useToggle(initializer = true)
     return [value, toggle]
 }
 
+function useAutoIncrement (initializer =0, step= 1)
+{
+    const [count, increment] = useIncrement(initializer)
+    useEffect(function () {
+        const timer = window.setInterval(function() {
+            increment()
+        }, 1000)
+        return function () {
+            clearInterval(timer)
+        }
+    })
+    return count
+}
+
+export function TodoList() {
+
+    return <div>
+        <h3> Taches à faire </h3>
+        <ul>
+            <li> Tache i</li>
+        </ul>
+    </div>
+}
 
 export function AppCompteur () {
 
@@ -34,9 +57,9 @@ export function AppCompteur () {
 
 export function Compteur () {
 
-    const [count, increment] = useIncrement(10)
+    const count = useAutoIncrement(10)
    
-    return <button className="cmp" onClick={increment}>
+    return <button className="cmp">
         Nombre : {count}
     </button>
     
