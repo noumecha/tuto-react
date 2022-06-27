@@ -20,6 +20,35 @@ function useToggle(initializer = true)
     return [value, toggle]
 }
 
+function useFetch(url) {
+
+    const [state, setState] = useState({
+        items : [],
+        loading: true
+    })
+
+    useEffect(function () {
+        (async function() {
+            const response = await fetch(url);
+            const responseData = await response.json()
+            if (response.ok) {
+                setState({
+                    items: responseData,
+                    loading: false
+                })
+            } else {
+                alert(JSON.stringify(responseData))
+                setState(s => ({...s, loading: false}))
+            }
+        })() 
+    })
+
+    return [
+        state.loading,
+        state.items
+    ]
+}
+
 function useAutoIncrement (initializer =0, step= 1)
 {
     const [count, increment] = useIncrement(initializer)
@@ -35,11 +64,18 @@ function useAutoIncrement (initializer =0, step= 1)
 }
 
 export function TodoList() {
+    const [loading, items] = useFetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
+
+
+    if (loading) 
+    {
+        return 'Loading ...'
+    }
 
     return <div>
         <h3> Taches à faire </h3>
         <ul>
-            <li> Tache i</li>
+            {items.map(t =><li>{t.title}</li> )}
         </ul>
     </div>
 }
