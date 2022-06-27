@@ -4,6 +4,7 @@ import {Clock} from './Clock'
 import {AppCompteur} from './Compteur'
 import {TodoList} from './Compteur'
 import { LayoutEffect } from './Button'
+import { ToolBar } from './ToolBar'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <AppCompteur/>
         <TodoList />
         <LayoutEffect />
+        <ToolBar />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.

@@ -48,3 +48,13 @@ code {
   cursor: pointer;
   background: #228B22;
 }
+.btn input {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+.btn button {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
