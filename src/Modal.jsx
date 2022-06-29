@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React , { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { createPortal } from 'react-dom'
 import './bootstrap/css/bootstrap-grid.css'
@@ -9,6 +9,13 @@ import './bootstrap/css/bootstrap.css'
 export function Modal({ onClose, children, title })
 {
 
+    useEffect(function (){
+        document.addEventListener('keydown', onClose)
+        return function () {
+            document.removeEventListener('keydown', onClose)
+        }
+    }, [onClose])
+
     return createPortal(
         <>
             <div className="modal fade show" role="dialog" style={{ display: 'block' }}>
@@ -18,7 +25,7 @@ export function Modal({ onClose, children, title })
                             <h5 className="modal-title">
                                 {title}
                             </h5>
-                            <button className="close" type="button" aria-label="Close">
+                            <button className="close" type="button" aria-label="Close" onClick={onClose}>
                                 <span aria-hidden="true">x</span>
                             </button>
                         </div>
@@ -38,4 +45,8 @@ Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired
+}
+
+Modal.defaultProps = {
+    title : 'Mr Hack'
 }
